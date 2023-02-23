@@ -2,8 +2,8 @@ let button;
 let slider;
 let val;
 
-const delay = new Tone.FeedbackDelay("8n", 0.5);
-const reverb = new Tone.Reverb(1);
+//const delay = new Tone.FeedbackDelay("8n", 0.5);
+const reverb = new Tone.Reverb(0.5);
 
 const player = new Tone.Players({
   "sound1":"sounds/wind-chimes.mp3",
@@ -22,8 +22,10 @@ function setup() {
   createCanvas(500, 500);
 
 
-  player.connect(delay);
-  delay.toDestination();
+  // player.connect(delay);
+  // delay.toDestination();
+
+  player.connect(reverb)
   reverb.toDestination();
 
   button1 = createButton("sound 1");
@@ -42,11 +44,13 @@ function setup() {
   button4.position(10, 80);
   button4.mousePressed(() => play("sound4"));
   
-  slider = createSlider(0, 5, 1);
+  slider = createSlider(0.1, 10, 5, 0.5);
   slider.position(10, 100);
   slider.style('width', '80px');
-  // delay.delayTime.value = slider.value();
-  // reverb.decay.value = slider.value();
+  slider.mouseReleased( () => {
+    // delay.delayTime.value = slider.value();
+    reverb.decay = slider.value();
+  })
 
 }
 
@@ -55,6 +59,7 @@ function draw() {
   val = slider.value();
   text("Change the Reverb", 10, 120);
   text(`Reverb = ${val} second(s)`, 90, 105);
+  console.log(`Reverb = ${reverb.decay} second(s)`)
 }
 
 
