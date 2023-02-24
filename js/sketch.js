@@ -59,7 +59,6 @@ function draw() {
   val = slider.value();
   text("Change the Reverb", 10, 120);
   text(`Reverb = ${val} second(s)`, 90, 105);
-  console.log(`Reverb = ${reverb.decay} second(s)`)
 }
 
 
